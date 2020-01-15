@@ -3,6 +3,13 @@ Contains lambda functions to be deployed on AWS.
 
 Currently for customizing AWS Cognito Email messages to users.
 
+
+How to run tests
+1. Jest is used for tests so install dependencies with 
+    - $npm install
+2. Run test
+    - $npm test
+
 To Deploy Lambda Function Initially
 
 1. Zip handler.js file
@@ -22,3 +29,4 @@ Updating a Lambda Function
 2. Run update function code command
     - $aws lambda update-function-code --function-name TestCustomizeCognitoMessageTrigger  \
         --zip-file fileb://function.zip
+
