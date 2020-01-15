@@ -5,7 +5,7 @@ exports.handler = (event, context, callback) => {
     }
     else if(event.triggerSource === "CustomMessage_ForgotPassword") {
         event.response.emailSubject = "Forgot Password for Casebook Platform";
-        event.response.emailMessage = "Your username is " + event.request.usernameParameter + " and " + event.request.codeParameter + " is your verification code \n."
+        event.response.emailMessage = "Your username is " + event.request.usernameParameter + " and " + event.request.codeParameter + " is your verification code. \n"
         + "Reset your password at internal.casebookdev.net/authentication/reset-password";
     }
     callback(null, event);
