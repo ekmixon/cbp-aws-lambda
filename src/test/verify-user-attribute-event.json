@@ -1,0 +1,18 @@
+{
+    "triggerSource": "CustomMessage_VerifyUserAttribute",
+    "request": {
+      "userAttributes": {
+        "name": "John Smith",
+        "sub": "****",
+        "email_verified": "false",
+        "cognito:user_status": "UNCONFIRMED",
+        "email": "userName@test.com"
+      },
+      "usernameParameter": "userName@test.com"
+    },
+    "response": {
+      "smsMessage": "Cognito Default Message",
+      "emailMessage": "Cognito Default Message",
+      "emailSubject": "Cognito Default Subject"
+    }
+  }

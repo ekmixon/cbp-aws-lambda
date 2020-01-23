@@ -1,0 +1,22 @@
+{
+    "triggerSource": "CustomMessage_ResendCode",
+    "request": {
+      "userAttributes": {
+        "name": "John Smith",
+        "sub": "****",
+        "email_verified": "false",
+        "cognito:user_status": "UNCONFIRMED",
+        "email": "userName@test.com"
+      },
+      "clientMetadata": {
+          "subDomain": "testTenant"
+      },
+      "codeParameter": "yourTempPassword",
+      "usernameParameter": "userName@test.com"
+    },
+    "response": {
+      "smsMessage": "<custom message to be sent in the message with code parameter and username parameter>",
+      "emailMessage": "<custom message to be sent in the message with code parameter and username parameter>",
+      "emailSubject": "<custom email subject>"
+    }
+  }
