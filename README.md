@@ -11,22 +11,21 @@ Currently for customizing AWS Cognito Email messages to users.
     - $npm test
 
 ### To Deploy Lambda Function Initially
-
 1. Zip handler.js file
     - $zip -j function.zip src/handler.js 
-2. Run AWS CLI command to initially upload function.zip
+2. Run AWS CLI command to initially upload function.zip 
     - To deploy to DEV (switch 816905787311 to different env account number for other environments)
-        - $aws lambda create-function --function-name TestCustomizeCognitoMessageTrigger  \
+        - $aws lambda create-function --function-name CustomizeCognitoMessageTrigger  \
             --zip-file fileb://function.zip --handler handler.handler --runtime nodejs12.x \
             --role arn:aws:iam::816905787311:role/lambda-cli-role
 3. Test function is deployed
-    - $aws lambda invoke --function-name TestCustomizeCognitoMessageTrigger out --log-type Tail --query 'LogResult' --output text |  base64 -D
+    - $aws lambda invoke --function-name CustomizeCognitoMessageTrigger out --log-type Tail --query 'LogResult' --output text |  base64 -D
 
 
 ### Updating a Lambda Function
 1. Zip handler.js file
     - $zip -j function.zip src/handler.js 
 2. Run update function code command
-    - $aws lambda update-function-code --function-name TestCustomizeCognitoMessageTrigger  \
+    - $aws lambda update-function-code --function-name CustomizeCognitoMessageTrigger  \
         --zip-file fileb://function.zip
 
