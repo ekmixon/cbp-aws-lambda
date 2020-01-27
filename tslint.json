@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "@casecommons/tslint-config/base"
+  ],
+  "rules": {
+    "no-magic-numbers": false,
+    "no-non-null-assertion": false
+  }
+}
+
