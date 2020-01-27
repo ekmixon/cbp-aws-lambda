@@ -1,9 +1,10 @@
 exports.handler = (event, context, callback) => {
     if(event.triggerSource === "CustomMessage_AdminCreateUser" || event.triggerSource === "CustomMessage_ResendCode") {
+        let subDomain = "[placeholder]";
         try {
-            var subDomain = event.request.clientMetadata.subDomain;
+            subDomain = event.request.clientMetadata.subDomain;
         } catch(e) {
-            var subDomain = "[placeholder]";
+            console.error("No subDomain attribute in clientMetadata");
         }
         event.response.emailSubject = "Your Casebook Account Information";
         event.response.emailMessage = event.request.userAttributes.name + ", \<br\> \<br\>" +
@@ -12,10 +13,11 @@ exports.handler = (event, context, callback) => {
             "Please note that this invitation will expire in 24 hours.";
     }
     else if(event.triggerSource === "CustomMessage_ForgotPassword") {
+        let subDomain = "[placeholder]";
         try {
-            var subDomain = event.request.clientMetadata.subDomain;
+            subDomain = event.request.clientMetadata.subDomain;
         } catch(e) {
-            var subDomain = "[placeholder]";
+            console.error("No subDomain attribute in clientMetadata");
         }
         event.response.emailSubject = "Reset your password";
         event.response.emailMessage = event.request.userAttributes.name + ", \<br\> \<br\>" +
