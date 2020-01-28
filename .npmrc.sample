@@ -1,0 +1,6 @@
+package-lock=false
+registry=https://casecommons.jfrog.io/casecommons/api/npm/npm/
+save-exact=true
+_auth =
+always-auth = true
+email =

@@ -2,15 +2,33 @@
   "name": "cbp-cognito-message-customization-aws-lambda",
   "version": "1.0.0",
   "description": "Lambda function for customizing cognito emails.",
-  "dependencies": {
-      "serverless-jest-plugin": "^0.3.0"
-  },
+  "author": "Casebook PBC (https://www.casebook.net)",
+  "license": "UNLICENSED",
+  "main": "dist/handler.js",
   "scripts": {
-    "test": "jest"
+    "clean": "rimraf dist/*",
+    "tsc": "tsc -p tsconfig.build.json",
+    "build": "npm-run-all clean lint tsc",
+    "jest": "APP_ENV=test jest -c test/jest.config.js",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "test": "yarn lint && yarn jest",
+    "test:watch": "yarn lint && yarn jest --watch"
   },
-  "jest": {
-    "testMatch": [
-      "**/?(*.)+(spec|test).[jt]s?(x)"
-    ]
+  "dependencies": {
+    "aws-lambda": "1.0.5"
+  },
+  "devDependencies": {
+    "@casecommons/tslint-config": "3.0.0",
+    "@types/aws-lambda": "8.10.40",
+    "@types/jest": "25.1.0",
+    "@types/node": "13.5.0",
+    "jest": "25.1.0",
+    "jest-watch-typeahead": "0.4.2",
+    "npm-run-all": "4.1.5",
+    "rimraf": "3.0.0",
+    "serverless-jest-plugin": "^0.3.0",
+    "ts-jest": "25.0.0",
+    "tslint": "6.0.0",
+    "typescript": "3.7.5"
   }
 }
