@@ -9,7 +9,6 @@ const lambdaWrapper = jestPlugin.lambdaWrapper
 const wrapped = lambdaWrapper.wrap(mod)
 const env = {...process.env}
 
-
 const expectedInvitationEmailBody = 'John Smith, \<br\> \<br\>' +
   'You\'ve been added to Casebook. Please follow this link to activate your account: https://testTenant.casebook.net/.\<br\>' +
   'Your associated email address is userName@test.com and your temporary password is yourTempPassword.\<br\>' +

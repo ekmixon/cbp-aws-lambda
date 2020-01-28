@@ -11,7 +11,6 @@ Currently for customizing AWS Cognito Email messages to users.
     - $npm test
 
 ### To Deploy Lambda Function Initially
-
 1. run Yarn Build
 2. Zip handler.js file
     - $zip -j function.zip dist/handler.js 
@@ -26,8 +25,9 @@ Currently for customizing AWS Cognito Email messages to users.
 
 
 ### Updating a Lambda Function
+1. run Yarn Build
 1. Zip handler.js file
-    - $zip -j function.zip src/handler.js 
+    - $zip -j function.zip dist/handler.js 
 2. Run update function code command
     - $aws lambda update-function-code --function-name CustomizeCognitoMessageTrigger  \
         --zip-file fileb://function.zip
