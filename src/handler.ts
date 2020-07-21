@@ -5,7 +5,15 @@ const missingSubdomainError = 'No subDomain attribute in clientMetadata'
 export const handler: Handler<CognitoUserPoolTriggerEvent> = (event, context, callback) => {
   const domainPostFix = process.env.DOMAIN_POSTFIX
   let subDomain = '[placeholder]'
-  if (event.triggerSource === 'CustomMessage_AdminCreateUser' || event.triggerSource === 'CustomMessage_ResendCode') {
+  let selfRegistered = false
+  try {
+    selfRegistered = (event.request as any).clientMetadata.selfRegistered
+  } catch(e) {
+      // tslint:disable-next-line: no-console
+      console.debug('No selfRegistered attribute in clientMetadata')
+  }
+
+  if (event.triggerSource === 'CustomMessage_AdminCreateUser' || (event.triggerSource === 'CustomMessage_ResendCode' && !selfRegistered)) {
     try {
         subDomain = (event.request as any).clientMetadata.subDomain
     } catch(e) {
@@ -32,7 +40,7 @@ export const handler: Handler<CognitoUserPoolTriggerEvent> = (event, context, ca
       `https://${subDomain}.casebook${domainPostFix}.net/authentication/reset-password \<br\> \<br\>` +
       'Please do not share this code with anyone. \<br\>' +
       'If you would rather not reset your password or you didn\'t make this request, then you can ignore this email, and your password will not be changed.'
-  } else if(event.triggerSource === 'CustomMessage_SignUp') {
+  } else if(event.triggerSource === 'CustomMessage_SignUp' || (event.triggerSource === 'CustomMessage_ResendCode' && selfRegistered)) {
     let tenantName = 'Casebook'
     try {
         subDomain = (event.request as any).clientMetadata.subDomain

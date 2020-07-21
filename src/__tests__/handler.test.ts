@@ -5,6 +5,7 @@ import adminResendCodeEvent from './admin-resend-invitation-event.json'
 import forgotPasswordEvent from './forgot-password-event.json'
 import verifyUserAttributeEvent from './verify-user-attribute-event.json'
 import signUpUserEvent from './signup-user-event.json'
+import resendVerifiationCodeEvent from './resend-verification-code-event.json'
 
 const lambdaWrapper = jestPlugin.lambdaWrapper
 const wrapped = lambdaWrapper.wrap(mod)
@@ -14,6 +15,13 @@ const expectedInvitationEmailBody = 'John Smith, \<br\> \<br\>' +
   'You\'ve been added to Casebook. Please follow this link to activate your account: https://testTenant.casebook.net/.\<br\>' +
   'Your associated email address is userName@test.com and your temporary password is yourTempPassword.\<br\>' +
   'Please note that this invitation will expire in 24 hours.'
+
+  const expectedSelfRegistrationVerifcationEmailBody = 'Hello John Smith, \<br\> \<br\>' +
+        'Thanks for signing up with Test Tenant. ' +
+        'To complete your account setup, follow: https://testTenant.casebook.net/authentication/login?verificationCode=1234567&username=userName@test.com \<br\>' +
+        'Once you verify, you will be able to log in to your account. \<br\> \<br\>' +
+        'This link is valid for the next 24 hours only.  \<br\> \<br\>' +
+        'Thanks!'
 
 
 beforeEach(() => {
@@ -84,13 +92,16 @@ describe('Customize Admin Create Message', () => {
   describe('Customize Sign Up Message', () => {
     it('returns customized sign up message', () => (
       wrapped.run(signUpUserEvent).then((response) => {
-        const expectedEmailBody = 'Hello John Smith, \<br\> \<br\>' +
-        'Thanks for signing up with Test Tenant. ' +
-        'To complete your account setup, follow: https://testTenant.casebook.net/authentication/login?verificationCode=1234567&username=userName@test.com \<br\>' +
-        'Once you verify, you will be able to log in to your account. \<br\> \<br\>' +
-        'This link is valid for the next 24 hours only.  \<br\> \<br\>' +
-        'Thanks!'
-        expect(response.response.emailMessage).toEqual(expectedEmailBody)
+        expect(response.response.emailMessage).toEqual(expectedSelfRegistrationVerifcationEmailBody)
+        expect(response.response.emailSubject).toEqual('Welcome to Test Tenant. Please verify your email')
+      })
+    ))
+  })
+
+  describe('Customize Resend Verification Code Message', () => {
+    it('returns customized resend verfication code message', () => (
+      wrapped.run(resendVerifiationCodeEvent).then((response) => {
+        expect(response.response.emailMessage).toEqual(expectedSelfRegistrationVerifcationEmailBody)
         expect(response.response.emailSubject).toEqual('Welcome to Test Tenant. Please verify your email')
       })
     ))
