@@ -4,6 +4,7 @@ import adminCreateUserEvent from './admin-create-user-event.json'
 import adminResendCodeEvent from './admin-resend-invitation-event.json'
 import forgotPasswordEvent from './forgot-password-event.json'
 import verifyUserAttributeEvent from './verify-user-attribute-event.json'
+import signUpUserEvent from './signup-user-event.json'
 
 const lambdaWrapper = jestPlugin.lambdaWrapper
 const wrapped = lambdaWrapper.wrap(mod)
@@ -76,6 +77,21 @@ describe('Customize Admin Create Message', () => {
       wrapped.run(verifyUserAttributeEvent).then((response) => {
         expect(response.response.emailMessage).toEqual('Cognito Default Message')
         expect(response.response.emailSubject).toEqual('Cognito Default Subject')
+      })
+    ))
+  })
+
+  describe('Customize Sign Up Message', () => {
+    it('returns customized sign up message', () => (
+      wrapped.run(signUpUserEvent).then((response) => {
+        const expectedEmailBody = 'Hello John Smith, \<br\> \<br\>' +
+        'Thanks for signing up with Test Tenant. ' +
+        'To complete your account setup, follow: https://testTenant.casebook.net/authentication/login?verificationCode=1234567&username=userName@test.com \<br\>' +
+        'Once you verify, you will be able to log in to your account. \<br\> \<br\>' +
+        'This link is valid for the next 24 hours only.  \<br\> \<br\>' +
+        'Thanks!'
+        expect(response.response.emailMessage).toEqual(expectedEmailBody)
+        expect(response.response.emailSubject).toEqual('Welcome to Test Tenant. Please verify your email')
       })
     ))
   })
