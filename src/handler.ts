@@ -19,7 +19,7 @@ export const handler: Handler<CognitoUserPoolTriggerEvent> = (event, context, ca
   callback(null, event)
 }
 
-const setAdminCreateUserMessage = (event:any, domainPostFix: string | undefined) => {
+const setAdminCreateUserMessage = (event:any, domainPostFix: any) => {
   const subDomain = getSubDomain(event)
   event.response.emailSubject = 'Your Casebook Account Information'
   event.response.emailMessage = `${event.request.userAttributes.name}, \<br\> \<br\>` +
@@ -29,7 +29,7 @@ const setAdminCreateUserMessage = (event:any, domainPostFix: string | undefined)
 }
 
 
-const setForgotPasswordMessage = (event:any, domainPostFix: string | undefined) => {
+const setForgotPasswordMessage = (event:any, domainPostFix: any) => {
   const subDomain = getSubDomain(event)
   event.response.emailSubject = 'Reset your password'
   event.response.emailMessage = `${event.request.userAttributes.name}, \<br\> \<br\>` +
@@ -41,7 +41,7 @@ const setForgotPasswordMessage = (event:any, domainPostFix: string | undefined) 
     'If you would rather not reset your password or you didn\'t make this request, then you can ignore this email, and your password will not be changed.'
 }
 
-const setSignUpMessage = (event:any, domainPostFix: string | undefined) => {
+const setSignUpMessage = (event:any, domainPostFix: any) => {
   let tenantName = 'Casebook'
   const subDomain = getSubDomain(event)
   try {
