@@ -1,5 +1,6 @@
 {
     "triggerSource": "CustomMessage_SignUp",
+    "userName": "userName@test.com",
     "request": {
       "userAttributes": {
         "name": "John Smith",
@@ -12,8 +13,7 @@
           "subDomain": "testTenant",
           "tenantName": "Test Tenant"
       },
-      "codeParameter": "1234567",
-      "usernameParameter": "userName@test.com"
+      "codeParameter": "1234567"
     },
     "response": {
       "smsMessage": "<custom message to be sent in the message with code parameter and username parameter>",

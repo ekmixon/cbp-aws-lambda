@@ -50,7 +50,7 @@ const setSignUpMessage = (event:any, domainPostFix: string | undefined) => {
       // tslint:disable-next-line: no-console
       console.error('No tenantName attribute in clientMetadata')
   }
-  const verificationLink = `https://${subDomain}.casebook${domainPostFix}.net/authentication/login?verificationCode=${event.request.codeParameter}&username=${event.request.usernameParameter}`
+  const verificationLink = `https://${subDomain}.casebook${domainPostFix}.net/authentication/login?verificationCode=${event.request.codeParameter}&username=${event.userName}`
 
   event.response.emailSubject = `Welcome to ${tenantName}. Please verify your email`
   event.response.emailMessage = `Hello ${event.request.userAttributes.name}, \<br\> \<br\>` +

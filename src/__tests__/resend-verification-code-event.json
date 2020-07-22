@@ -1,5 +1,6 @@
 {
   "triggerSource": "CustomMessage_ResendCode",
+  "userName": "userName@test.com",
   "request": {
     "userAttributes": {
       "name": "John Smith",
