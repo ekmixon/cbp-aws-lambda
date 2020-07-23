@@ -6,6 +6,9 @@
 .npmrc
 .vscode
 .idea
+.DS_Store
+*.zip
+out
 build/Release
 coverage
 dist

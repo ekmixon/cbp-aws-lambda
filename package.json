@@ -15,7 +15,7 @@
     "test:watch": "yarn lint && yarn jest --watch"
   },
   "dependencies": {
-    "aws-lambda": "1.0.5"
+    "aws-lambda": "1.0.6"
   },
   "devDependencies": {
     "@casecommons/tslint-config": "3.0.0",
