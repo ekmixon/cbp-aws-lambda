@@ -55,7 +55,7 @@ const setSignUpMessage = (event:any, domainPostFix: any) => {
   event.response.emailSubject = `Welcome to ${tenantName}. Please verify your email`
   event.response.emailMessage = `Hello ${event.request.userAttributes.name}, \<br\> \<br\>` +
     `Thanks for signing up with ${tenantName}. ` +
-    `To complete your account setup, follow: ${verificationLink} \<br\>` +
+    `To complete your account setup, please follow: ${verificationLink} \<br\>` +
     'Once you verify, you will be able to log in to your account. \<br\> \<br\>' +
     'This link is valid for the next 24 hours only.  \<br\> \<br\>' +
     'Thanks!'
