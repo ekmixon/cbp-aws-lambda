@@ -18,7 +18,7 @@ const expectedInvitationEmailBody = 'John Smith, \<br\> \<br\>' +
 
   const expectedSelfRegistrationVerifcationEmailBody = 'Hello John Smith, \<br\> \<br\>' +
         'Thanks for signing up with Test Tenant. ' +
-        'To complete your account setup, follow: https://testTenant.casebook.net/authentication/login?verificationCode=1234567&username=userName@test.com \<br\>' +
+        'To complete your account setup, please follow: https://testTenant.casebook.net/authentication/login?verificationCode=1234567&username=userName@test.com \<br\>' +
         'Once you verify, you will be able to log in to your account. \<br\> \<br\>' +
         'This link is valid for the next 24 hours only.  \<br\> \<br\>' +
         'Thanks!'
