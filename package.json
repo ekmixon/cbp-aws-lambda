@@ -6,13 +6,16 @@
   "license": "UNLICENSED",
   "main": "dist/handler.js",
   "scripts": {
-    "clean": "rimraf dist/*",
+    "clean": "rimraf dist/* function.zip",
     "tsc": "tsc -p tsconfig.build.json",
     "build": "npm-run-all clean lint tsc",
+    "build:win": "npm-run-all build",
     "jest": "APP_ENV=test jest -c test/jest.config.js",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "test": "yarn lint && yarn jest",
-    "test:watch": "yarn lint && yarn jest --watch"
+    "test:watch": "yarn lint && yarn jest --watch",
+    "postbuild:win": "pwsh.exe -Command \"Compress-Archive .\\dist\\handler.js function.zip\"",
+    "deploy": "aws lambda update-function-code --function-name CustomizeCognitoMessageTrigger --zip-file fileb://function.zip"
   },
   "dependencies": {
     "aws-lambda": "1.0.6"
