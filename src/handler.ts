@@ -5,31 +5,37 @@ export const handler: Handler<CognitoUserPoolTriggerEvent> = (event, context, ca
   let selfRegistered = false
   try {
     selfRegistered = (event.request as any).clientMetadata.selfRegistered
-  } catch(e) {
-      // tslint:disable-next-line: no-console
-      console.debug('No selfRegistered attribute in clientMetadata')
+  } catch (e) {
+    // tslint:disable-next-line: no-console
+    console.debug('No selfRegistered attribute in clientMetadata')
   }
   if (event.triggerSource === 'CustomMessage_AdminCreateUser' || (event.triggerSource === 'CustomMessage_ResendCode' && !selfRegistered)) {
     setAdminCreateUserMessage(event, domainPostFix)
-  } else if(event.triggerSource === 'CustomMessage_ForgotPassword') {
+  } else if (event.triggerSource === 'CustomMessage_ForgotPassword') {
     setForgotPasswordMessage(event, domainPostFix)
-  } else if(event.triggerSource === 'CustomMessage_SignUp' || (event.triggerSource === 'CustomMessage_ResendCode' && selfRegistered)) {
+  } else if (event.triggerSource === 'CustomMessage_SignUp' || (event.triggerSource === 'CustomMessage_ResendCode' && selfRegistered)) {
     setSignUpMessage(event, domainPostFix)
   }
   callback(null, event)
 }
 
-const setAdminCreateUserMessage = (event:any, domainPostFix: any) => {
+const setAdminCreateUserMessage = (event: any, domainPostFix: any) => {
   const subDomain = getSubDomain(event)
   event.response.emailSubject = 'Your Casebook Account Information'
-  event.response.emailMessage = `${event.request.userAttributes.name}, \<br\> \<br\>` +
-          `You've been added to Casebook. Please follow this link to activate your account: https://${subDomain}.casebook${domainPostFix}.net/.\<br\>` +
-          `Your associated email address is ${event.request.usernameParameter} and your temporary password is ${event.request.codeParameter}.\<br\>` +
-          'Please note that this invitation will expire in 24 hours.'
+  event.response.emailMessage = `
+    ${event.request.userAttributes.name}, <br\>
+    <br\>
+    You've been added to Casebook. Please follow this link to activate your account: https://${subDomain}.casebook${domainPostFix}.net<br\>
+    <br \>
+    Your associated email address is: ${event.request.usernameParameter}<br\>
+    Your temporary password is: ${event.request.codeParameter}<br\>
+    <br\>
+    Please note that this invitation will expire in 24 hours.
+  `
 }
 
 
-const setForgotPasswordMessage = (event:any, domainPostFix: any) => {
+const setForgotPasswordMessage = (event: any, domainPostFix: any) => {
   const subDomain = getSubDomain(event)
   event.response.emailSubject = 'Reset your password'
   event.response.emailMessage = `${event.request.userAttributes.name}, \<br\> \<br\>` +
@@ -41,14 +47,14 @@ const setForgotPasswordMessage = (event:any, domainPostFix: any) => {
     'If you would rather not reset your password or you didn\'t make this request, then you can ignore this email, and your password will not be changed.'
 }
 
-const setSignUpMessage = (event:any, domainPostFix: any) => {
+const setSignUpMessage = (event: any, domainPostFix: any) => {
   let tenantName = 'Casebook'
   const subDomain = getSubDomain(event)
   try {
     tenantName = event.request.clientMetadata.tenantName
-  } catch(e) {
-      // tslint:disable-next-line: no-console
-      console.error('No tenantName attribute in clientMetadata')
+  } catch (e) {
+    // tslint:disable-next-line: no-console
+    console.error('No tenantName attribute in clientMetadata')
   }
   const verificationLink = `https://${subDomain}.casebook${domainPostFix}.net/authentication/login?verificationCode=${event.request.codeParameter}&username=${event.userName}`
 
@@ -62,13 +68,13 @@ const setSignUpMessage = (event:any, domainPostFix: any) => {
 }
 
 
-const getSubDomain = (event:any): string => {
+const getSubDomain = (event: any): string => {
   let subDomain = '[placeholder]'
   try {
-      subDomain = event.request.clientMetadata.subDomain
-  } catch(e) {
-      // tslint:disable-next-line: no-console
-      console.error('No subDomain attribute in clientMetadata')
+    subDomain = event.request.clientMetadata.subDomain
+  } catch (e) {
+    // tslint:disable-next-line: no-console
+    console.error('No subDomain attribute in clientMetadata')
   }
   return subDomain
 }
