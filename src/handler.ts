@@ -23,10 +23,13 @@ const setAdminCreateUserMessage = (event: any, domainPostFix: any) => {
   const subDomain = getSubDomain(event)
   event.response.emailSubject = 'Your Casebook Account Information'
   event.response.emailMessage = `
-    ${event.request.userAttributes.name}, <br\> <br\>
+    ${event.request.userAttributes.name}, <br\>
+    <br\>
     You've been added to Casebook. Please follow this link to activate your account: https://${subDomain}.casebook${domainPostFix}.net<br\>
+    <br \>
     Your associated email address is: ${event.request.usernameParameter}<br\>
     Your temporary password is: ${event.request.codeParameter}<br\>
+    <br\>
     Please note that this invitation will expire in 24 hours.
   `
 }
